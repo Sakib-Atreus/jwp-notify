@@ -13,17 +13,17 @@ router.post("/send", async (req: Request, res: Response) => {
       return res.status(400).json({ error: "title and body are required" });
     }
 
-    // 1️⃣ Save notification to Supabase
+    // 1. Save notification to Supabase
     const notification = await insertNotification({ title, body, data: data || {}, type: data?.type || "general" });
 
-    // 2️⃣ Get all device tokens
+    // 2. Get all device tokens
     const devices = await fetchAllDevices();
     const tokens = devices.map(d => d.fcm_token).filter(Boolean);
 
-    // 3️⃣ Link notification to devices
+    // 3. Link notification to devices
     await Promise.all(devices.map(d => insertDeviceNotification(d.id, notification.id)));
 
-    // 4️⃣ Send push
+    // 4. Send push
     await sendFCM(tokens, { notification: { title, body }, data });
 
     return res.json({ success: true, sent: tokens.length });

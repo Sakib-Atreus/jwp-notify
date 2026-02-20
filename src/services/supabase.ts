@@ -12,7 +12,7 @@ if (!PROJECT_URL || !PUBLIC_ANON_KEY) {
   );
 }
 
-// ✅ Create Supabase client
+// Create Supabase client
 const supabase = createClient(PROJECT_URL, PUBLIC_ANON_KEY);
 
 // ================= Supabase functions =================
@@ -86,5 +86,5 @@ export async function fetchDeviceNotifications(deviceId: string) {
   return data;
 }
 
-// ✅ Export client for direct queries
+// Export client for direct queries
 export default supabase;

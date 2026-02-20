@@ -10,7 +10,7 @@ try {
   throw new Error("FIREBASE_SERVICE_ACCOUNT is not valid JSON");
 }
 
-// ✅ Fix private key formatting - ensure it's a valid PEM format
+// private key formatting - ensure it's a valid PEM format
 if (!serviceAccount.private_key) {
   throw new Error("private_key is missing from FIREBASE_SERVICE_ACCOUNT");
 }
@@ -35,7 +35,7 @@ export async function getAccessToken(): Promise<string> {
     exp: now + 3600,
   };
 
-  // ✅ RS256 signing
+  // RS256 signing
   const token = jwt.sign(payload, serviceAccount.private_key, { algorithm: "RS256" });
 
   const res = await fetch("https://oauth2.googleapis.com/token", {

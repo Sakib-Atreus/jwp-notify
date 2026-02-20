@@ -47,7 +47,7 @@ router.post("/", async (req, res) => {
     // }
 
     if (eventType === "channel_active") {
-      payload = { notification: { title: "Live Started", body: `The channel "${media.name || "Channel"}" is now live!` }, data: { type: "live", id: media.channel_id } };
+      payload = { notification: { title: "Corrigan Sports Network", body: "Is LIVE!" }, data: { type: "live", id: media.channel_id } };
     }
 
     const savedNotification = await insertNotification({
