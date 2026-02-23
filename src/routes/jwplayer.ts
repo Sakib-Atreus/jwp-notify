@@ -1,7 +1,8 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import { insertNotification, fetchAllDevices, insertDeviceNotification } from "../services/supabase";
 import { sendFCM } from "../services/fcm";
 
+import { requireAuth } from "../middleware/reqauth";
 const router = Router();
 
 const allowedEvents = [
@@ -20,19 +21,19 @@ const allowedEvents = [
   "track_deleted"
 ];
 
-router.post("/", async (req, res) => {
+router.post("/", requireAuth, async (req: Request, res: Response) => {
   try {
     const event = req.body;
     const eventType = event.event;
     const media = event;
 
-    console.log(event)
-    console.log(eventType)
+    // console.log(event)
+    // console.log(eventType)
 
     if (!allowedEvents.includes(eventType)) return res.json({ ignored: true });
 
-    const mediaId = event.media_id;
-    const titleText = event.title || "New Media";
+    // const mediaId = event.media_id;
+    // const titleText = event.title || "New Media";
 
     let payload: any;
 
