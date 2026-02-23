@@ -27,8 +27,8 @@ router.post("/", requireAuth, async (req: Request, res: Response) => {
     const eventType = event.event;
     const media = event;
 
-    // console.log(event)
-    // console.log(eventType)
+    console.log(event)
+    console.log(eventType)
 
     if (!allowedEvents.includes(eventType)) return res.json({ ignored: true });
 
